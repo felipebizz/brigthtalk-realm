@@ -20,6 +20,21 @@ public class RealmController {
     @Autowired
     private RealmService realmService;
 
+    /**
+     * Check if parameter is numeric
+     *
+     * @param strNum parameter
+     * @return True or False
+     */
+    private static boolean isNumeric(String strNum) {
+        try {
+            Double.parseDouble(strNum);
+        } catch (NumberFormatException | NullPointerException nfe) {
+            return false;
+        }
+        return true;
+    }
+
     @RequestMapping("/{name}")
     public ResponseEntity<?> getRealmByName(@RequestParam("name") String name) {
         if (log.isDebugEnabled())
@@ -30,7 +45,6 @@ public class RealmController {
         }
         return ResponseEntity.ok().body(realm);
     }
-
 
     @GetMapping(value = "/all", produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody
@@ -61,7 +75,7 @@ public class RealmController {
     public @ResponseBody
     ResponseEntity<?> getByIdRealm(@RequestBody Realm realm, @PathVariable("realmId") int realmId) {
         if (log.isDebugEnabled())
-            log.debug(">>>>>>>>>>>>>>>> Request Received for Realm by Id" + realm.getId());
+            log.debug("Request Received for Realm by Id");
 
         if (!isNumeric(String.valueOf(realm.getId())))
             return ResponseEntity.badRequest().body(new Error("InvalidArgument"));
@@ -71,20 +85,5 @@ public class RealmController {
             return ResponseEntity.badRequest().body((new Error("RealmNotFound")));
 
         return ResponseEntity.ok().body(realmResponse);
-    }
-
-    /**
-     * Check if parameter is numeric
-     *
-     * @param strNum parameter
-     * @return True or False
-     */
-    private static boolean isNumeric(String strNum) {
-        try {
-            double d = Double.parseDouble(strNum);
-        } catch (NumberFormatException | NullPointerException nfe) {
-            return false;
-        }
-        return true;
     }
 }

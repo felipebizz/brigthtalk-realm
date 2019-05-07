@@ -17,6 +17,18 @@ public class RealmServiceImpl implements RealmService {
     @Autowired
     private RealmDAO realmDAO;
 
+    /**
+     * Key Number Generator
+     *
+     * @param min mininum number
+     * @param max maximum number
+     * @return ramdom key
+     */
+    private static String generateRandomNumberInts(int min, int max) {
+        Random random = new Random();
+        return String.valueOf(random.ints(min, (max + 1)).findFirst().getAsInt());
+    }
+
     @Transactional
     @Override
     public int save(Realm realm) {
@@ -37,18 +49,6 @@ public class RealmServiceImpl implements RealmService {
     @Override
     public List<Realm> list() {
         return realmDAO.getAll();
-    }
-
-    /**
-     * Key Number Generator
-     *
-     * @param min mininum number
-     * @param max maximum number
-     * @return ramdom key
-     */
-    private static String generateRandomNumberInts(int min, int max) {
-        Random random = new Random();
-        return String.valueOf(random.ints(min, (max + 1)).findFirst().getAsInt());
     }
 
 }
