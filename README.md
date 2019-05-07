@@ -1,6 +1,6 @@
 # Brigthtalk-Realm
-Javaweb-app using Spring RESTful MVC, 
-store data in a relational database, and can be deployable to Tomcat.
+Java web-app using Spring RESTful MVC
+ that store data in a relational database, and can be deployable to Tomcat.
 
 [![Build Status](https://travis-ci.org/felipebizz/brigthtalk-realm.svg?branch=master)](https://travis-ci.org/felipebizz/brigthtalk-realm)
 
@@ -29,7 +29,7 @@ First of all create a database called **BRIGHTTALK** at mySQL.
 
     ```mvn tomcat7:run```
     
-####Endpoints Available
+#### Endpoints Available
     
 ```
 http://localhost:8080/service/user/realm/create
