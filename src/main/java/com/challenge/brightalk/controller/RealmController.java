@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/service/user/realm")
 public class RealmController {
@@ -57,16 +56,18 @@ public class RealmController {
     }
 
     @GetMapping(value = "/{realmId}",
+            consumes = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody
-    ResponseEntity<?> getByIdRealm(@PathVariable("realmId") int realmId) {
+    ResponseEntity<?> getByIdRealm(@RequestBody Realm realm, @PathVariable("realmId") int realmId) {
+        if (log.isDebugEnabled())
+            log.debug(">>>>>>>>>>>>>>>> Request Received for Realm by Id" + realm.getId());
 
-        if (isNumeric(String.valueOf(realmId)))
+        if (!isNumeric(String.valueOf(realm.getId())))
             return ResponseEntity.badRequest().body(new Error("InvalidArgument"));
 
-        Realm realmResponse = realmService.getRealmById(realmId);
-
-        if (realmService.getRealmById(realmId) == null)
+        Realm realmResponse = realmService.getRealmById(realm.getId());
+        if (null == realmResponse)
             return ResponseEntity.badRequest().body((new Error("RealmNotFound")));
 
         return ResponseEntity.ok().body(realmResponse);
@@ -74,6 +75,7 @@ public class RealmController {
 
     /**
      * Check if parameter is numeric
+     *
      * @param strNum parameter
      * @return True or False
      */
