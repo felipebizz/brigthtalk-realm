@@ -2,8 +2,9 @@ package com.challenge.brightalk.controller;
 
 import com.challenge.brightalk.model.Error;
 import com.challenge.brightalk.model.Realm;
+import com.challenge.brightalk.model.RealmDTO;
 import com.challenge.brightalk.service.RealmService;
-import org.jboss.logging.Logger;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ public class RealmController {
     @Autowired
     private RealmService realmService;
 
+
     /**
      * Check if parameter is numeric
      *
@@ -35,8 +37,8 @@ public class RealmController {
         return true;
     }
 
-    @RequestMapping("/{name}")
-    public ResponseEntity<?> getRealmByName(@RequestParam("name") String name) {
+    @RequestMapping(value = "/{name}", method = RequestMethod.GET)
+    public ResponseEntity getRealmByName(@RequestParam("name") String name) {
         if (log.isDebugEnabled())
             log.debug("Request Received for get Realm by Name " + name);
         final Realm realm = realmService.getRealmByName(name);
@@ -55,17 +57,19 @@ public class RealmController {
     @PostMapping(value = "/create",
             consumes = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<?> createRealm(@RequestBody Realm realm) {
+    public ResponseEntity<?> createRealm(@RequestBody RealmDTO realmDTO) {
+
+
         if (log.isDebugEnabled())
             log.debug("Request Received for create Realm ");
 
-        if (realm.getName().isEmpty() || realm.getName() == null)
+        if (realmDTO.getName().isEmpty() || realmDTO.getName() == null)
             return ResponseEntity.badRequest().body(new Error("InvalidRealmName"));
 
-        if (realmService.getRealmByName(realm.getName()) != null)
+        if (realmService.getRealmByName(realmDTO.getName()) != null)
             return ResponseEntity.badRequest().body(new Error("DuplicateRealmName"));
 
-        final int uId = realmService.save(realm);
+        final int uId = realmService.save(realmDTO);
         return ResponseEntity.ok().body(realmService.getRealmById(uId));
     }
 
@@ -73,7 +77,7 @@ public class RealmController {
             consumes = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody
-    ResponseEntity<?> getByIdRealm(@RequestBody Realm realm, @PathVariable("realmId") int realmId) {
+    ResponseEntity getByIdRealm(@RequestBody Realm realm, @PathVariable("realmId") int realmId) {
         if (log.isDebugEnabled())
             log.debug("Request Received for Realm by Id");
 
