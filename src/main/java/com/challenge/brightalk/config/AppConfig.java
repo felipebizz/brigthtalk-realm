@@ -15,7 +15,8 @@ import static org.hibernate.cfg.Environment.*;
 @PropertySource("classpath:db.properties")
 @EnableTransactionManagement
 @ComponentScans(value = {@ComponentScan("com.challenge.brightalk.dao"),
-        @ComponentScan("com.challenge.brightalk.service")})
+        @ComponentScan("com.challenge.brightalk.service"),
+        @ComponentScan("com.challenge.brightalk.mapper")})
 public class AppConfig {
 
     @Autowired
