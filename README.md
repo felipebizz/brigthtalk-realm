@@ -14,6 +14,7 @@ Java web-app using Spring RESTful MVC
 * Log4j
 * Tomcat 7
 * MySQL
+* Orika
 
 **How to run:**
 -----
@@ -29,7 +30,7 @@ First of all create a database called **BRIGHTTALK** at mySQL.
 
     ```mvn tomcat7:run```
     
-#### Endpoints Available
+## Endpoints Available
     
 ```
 http://localhost:8080/service/user/realm/create
