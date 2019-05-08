@@ -1,6 +1,9 @@
 # Brigthtalk-Realm
 Java web-app using Spring RESTful MVC
  that store data in a relational database, and can be deployable to Tomcat.
+ 
+ It is possible create a new Realm by API using a content-ype: JSON or XML.
+ 
 
 [![Build Status](https://travis-ci.org/felipebizz/brigthtalk-realm.svg?branch=master)](https://travis-ci.org/felipebizz/brigthtalk-realm)
 
