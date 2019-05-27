@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping("/service/user/realm")
 public class RealmController {
 
-    private static Logger log = Logger.getLogger(RealmController.class);
+    private static final Logger log = Logger.getLogger(RealmController.class);
 
     @Autowired
     private RealmService realmService;

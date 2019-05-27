@@ -10,7 +10,7 @@ public class Realm {
     private int id;
     @Column(unique = true)
     private String name;
-    @Column(name = "description", length = 255)
+    @Column(name = "description")
     private String description;
     @Column(name = "_key", length = 32)
     private String key;

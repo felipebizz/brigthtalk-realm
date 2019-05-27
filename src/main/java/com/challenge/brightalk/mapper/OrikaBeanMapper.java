@@ -49,10 +49,10 @@ public class OrikaBeanMapper extends ConfigurableMapper implements ApplicationCo
     /**
      * Constructs and registers a {@link ClassMapBuilder} into the {@link MapperFactory} using a {@link Mapper}.
      *
-     * @param mapper
+     * @param mapper mapper
      */
     @SuppressWarnings("rawtypes")
-    public void addMapper(Mapper<?, ?> mapper) {
+    private void addMapper(Mapper<?, ?> mapper) {
         factory.classMap(mapper.getAType(), mapper.getBType())
                 .byDefault()
                 .customize((Mapper) mapper)
@@ -62,16 +62,16 @@ public class OrikaBeanMapper extends ConfigurableMapper implements ApplicationCo
     /**
      * Registers a {@link Converter} into the {@link ConverterFactory}.
      *
-     * @param converter
+     * @param converter converter
      */
-    public void addConverter(Converter<?, ?> converter) {
+    private void addConverter(Converter<?, ?> converter) {
         factory.getConverterFactory().registerConverter(converter);
     }
 
     /**
      * Scans the appliaction context and registers all Mappers and Converters found in it.
      *
-     * @param applicationContext
+     * @param applicationContext applicationContext
      */
     @SuppressWarnings("rawtypes")
     private void addAllSpringBeans(final ApplicationContext applicationContext) {

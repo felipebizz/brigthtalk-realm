@@ -7,6 +7,7 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import java.util.Objects;
 import java.util.Properties;
 
 import static org.hibernate.cfg.Environment.*;
@@ -28,21 +29,21 @@ public class AppConfig {
 
         Properties props = new Properties();
         // Setting JDBC properties
-        props.put(DRIVER, env.getProperty("mysql.driver"));
-        props.put(URL, env.getProperty("mysql.url"));
-        props.put(USER, env.getProperty("mysql.user"));
-        props.put(PASS, env.getProperty("mysql.password"));
+        props.put(DRIVER, Objects.requireNonNull(env.getProperty("mysql.driver")));
+        props.put(URL, Objects.requireNonNull(env.getProperty("mysql.url")));
+        props.put(USER, Objects.requireNonNull(env.getProperty("mysql.user")));
+        props.put(PASS, Objects.requireNonNull(env.getProperty("mysql.password")));
 
         // Setting Hibernate properties
-        props.put(SHOW_SQL, env.getProperty("hibernate.show_sql"));
-        props.put(HBM2DDL_AUTO, env.getProperty("hibernate.hbm2ddl.auto"));
+        props.put(SHOW_SQL, Objects.requireNonNull(env.getProperty("hibernate.show_sql")));
+        props.put(HBM2DDL_AUTO, Objects.requireNonNull(env.getProperty("hibernate.hbm2ddl.auto")));
 
         // Setting C3P0 properties
-        props.put(C3P0_MIN_SIZE, env.getProperty("hibernate.c3p0.min_size"));
-        props.put(C3P0_MAX_SIZE, env.getProperty("hibernate.c3p0.max_size"));
-        props.put(C3P0_ACQUIRE_INCREMENT, env.getProperty("hibernate.c3p0.acquire_increment"));
-        props.put(C3P0_TIMEOUT, env.getProperty("hibernate.c3p0.timeout"));
-        props.put(C3P0_MAX_STATEMENTS, env.getProperty("hibernate.c3p0.max_statements"));
+        props.put(C3P0_MIN_SIZE, Objects.requireNonNull(env.getProperty("hibernate.c3p0.min_size")));
+        props.put(C3P0_MAX_SIZE, Objects.requireNonNull(env.getProperty("hibernate.c3p0.max_size")));
+        props.put(C3P0_ACQUIRE_INCREMENT, Objects.requireNonNull(env.getProperty("hibernate.c3p0.acquire_increment")));
+        props.put(C3P0_TIMEOUT, Objects.requireNonNull(env.getProperty("hibernate.c3p0.timeout")));
+        props.put(C3P0_MAX_STATEMENTS, Objects.requireNonNull(env.getProperty("hibernate.c3p0.max_statements")));
 
         factoryBean.setHibernateProperties(props);
         factoryBean.setPackagesToScan("com.challenge.brightalk.model");

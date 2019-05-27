@@ -25,19 +25,18 @@ public class RealmServiceImpl implements RealmService {
     /**
      * Key Number Generator
      *
-     * @param min mininum number
-     * @param max maximum number
      * @return ramdom key
      */
-    private String generateRandomNumberInts(int min, int max) {
-        return String.valueOf(random.ints(min, (max + 1)).findFirst().getAsInt());
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
+    private String generateRandomNumberInts() {
+        return String.valueOf(random.ints(1, (1000 + 1)).findFirst().getAsInt());
     }
 
     @Transactional
     @Override
     public int save(RealmDTO realmDTO) {
         Realm realm = orikaMapper.map(realmDTO, Realm.class);
-        realm.setKey(generateRandomNumberInts(1, 1000));
+        realm.setKey(generateRandomNumberInts());
         return realmDAO.insert(realm);
     }
 
