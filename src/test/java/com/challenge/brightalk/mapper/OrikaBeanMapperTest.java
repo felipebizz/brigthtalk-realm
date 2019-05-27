@@ -19,7 +19,7 @@ public class OrikaBeanMapperTest {
     OrikaBeanMapper mapper;
 
     @Test
-    public void shouldMapRealmtoRealmDto() {
+    public void Should_MapRealmDTO_When_GivenRealm() {
 
         // Given
         Realm realm = new Realm();
